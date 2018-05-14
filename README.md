@@ -151,10 +151,10 @@ I then recorded the vehicle recovering from the left side and right sides of the
 In the run4.mp4 there is an awesome recovery at 0:50 of the video.
 This recovery turned out to be not accepted, so I made improvements to the model so that the car doesn't go outside the track
 
-
 To augment the data sat, I also flipped images and angles thinking that this would provide more data
 
-After the collection process, I had X number of data points. I then preprocessed this data by normalizing it.
+I then preprocessed this data by normalizing it and cropping it.
+Also, converted the data from BRG to RBG
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
@@ -164,4 +164,4 @@ I used this training data for training the model. The validation set helped dete
 
 In the second submission I only used 4 epochs, as the loss rate dropped really fast.
 
- I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used an adam optimizer so that manually training the learning rate wasn't necessary.
