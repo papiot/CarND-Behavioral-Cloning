@@ -18,13 +18,14 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: ./examples/left_2018_05_07_22_03_08_447.jpg "Left Image"
+[image2]: ./examples/right_2018_05_07_22_03_08_447.jpg "Right Image"
+[image3]: ./examples/center_2018_05_07_22_03_08_447.jpg "Center Image"
+
+[image4]: ./examples/left_2018_05_14_22_58_02_995.jpg "Left Image"
+[image5]: ./examples/right_2018_05_14_22_58_02_995.jpg "Right Image"
+[image6]: ./examples/center_2018_05_14_22_58_02_995.jpg "Center Image"
+
 [image8]: https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2016/08/cnn-architecture-624x890.png "Nvidia CNN model"
 
 ## Rubric Points
@@ -89,8 +90,6 @@ In order to gauge how well the model was working, I split my image and steering 
 
 To combat the overfitting, I modified the model so that the images are cropp
 
-Then I ... 
-
 The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. Biggest issue was first with the are that was missing the side yellow line and the right hand turn.
 
 To improve the driving behavior in these cases, I recorded a few laps going backwards and I also flipped the images
@@ -103,13 +102,54 @@ The final model architecture (model.py lines 50-80) consisted of a convolution n
 
 ![alt text][image8]
 
+Output from the tensorflow log. Only 4 epochs were used the 2nd time, as the loss rate dropped rapidly.
+
+```console
+(carnd-term1) carnd@ip-172-31-84-17:~/CarND-Behavioral-Cloning-P3$ python model.py
+Getting data....
+Using TensorFlow backend.
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcublas.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcudnn.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcufft.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcurand.so locally
+Train on 36004 samples, validate on 9002 samples
+Epoch 1/4
+I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:937] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties:
+name: GRID K520
+major: 3 minor: 0 memoryClockRate (GHz) 0.797
+pciBusID 0000:00:03.0
+Total memory: 3.94GiB
+Free memory: 3.91GiB
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GRID K520, pci bus id: 0000:00:03.0)
+36004/36004 [==============================] - 93s - loss: 0.0870 - val_loss: 0.1344
+Epoch 2/4
+36004/36004 [==============================] - 70s - loss: 0.0713 - val_loss: 0.1291
+Epoch 3/4
+36004/36004 [==============================] - 71s - loss: 0.0617 - val_loss: 0.1331
+Epoch 4/4
+36004/36004 [==============================] - 71s - loss: 0.0538 - val_loss: 0.1452
+```
+
 #### 3. Creation of the Training Set & Training Process
 
 To capture good driving behavior, I first recorded three laps on track one using center lane driving. 
 
+Here are some sample images:
+
+![alt text][image1] ![alt text][image2] ![alt text][image3]
+
+And here are some sample images from the test track
+
+![alt text][image4] ![alt text][image5] ![alt text][image6]
+
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover when going close to the edge.
 
 In the run4.mp4 there is an awesome recovery at 0:50 of the video.
+This recovery turned out to be not accepted, so I made improvements to the model so that the car doesn't go outside the track
 
 
 To augment the data sat, I also flipped images and angles thinking that this would provide more data
@@ -121,5 +161,7 @@ I finally randomly shuffled the data set and put 20% of the data into a validati
 I had issues with the car making the right turn, so I went back and recorded a few recoveries from left to right. This helped.
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 20 as evidenced by the loss rate stabilizing.
+
+In the second submission I only used 4 epochs, as the loss rate dropped really fast.
 
  I used an adam optimizer so that manually training the learning rate wasn't necessary.
