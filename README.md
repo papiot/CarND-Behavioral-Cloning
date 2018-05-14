@@ -18,9 +18,10 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
+[image1]: ./examples/left_2018_05_07_22_03_08_447.jpg "Left Image"
+[image2]: ./examples/right_2018_05_07_22_03_08_447.jpg "Right Image"
+[image3]: ./examples/center_2018_05_07_22_03_08_447.jpg "Center Image"
+
 [image4]: ./examples/placeholder_small.png "Recovery Image"
 [image5]: ./examples/placeholder_small.png "Recovery Image"
 [image6]: ./examples/placeholder_small.png "Normal Image"
@@ -89,8 +90,6 @@ In order to gauge how well the model was working, I split my image and steering 
 
 To combat the overfitting, I modified the model so that the images are cropp
 
-Then I ... 
-
 The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. Biggest issue was first with the are that was missing the side yellow line and the right hand turn.
 
 To improve the driving behavior in these cases, I recorded a few laps going backwards and I also flipped the images
@@ -139,9 +138,14 @@ Epoch 4/4
 
 To capture good driving behavior, I first recorded three laps on track one using center lane driving. 
 
+Here are some sample images:
+
+![alt text][image1] ![alt text][image2] ![alt text][image3]
+
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover when going close to the edge.
 
 In the run4.mp4 there is an awesome recovery at 0:50 of the video.
+This recovery turned out to be not accepted, so I made improvements to the model so that the car doesn't go outside the track
 
 
 To augment the data sat, I also flipped images and angles thinking that this would provide more data
@@ -153,5 +157,7 @@ I finally randomly shuffled the data set and put 20% of the data into a validati
 I had issues with the car making the right turn, so I went back and recorded a few recoveries from left to right. This helped.
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 20 as evidenced by the loss rate stabilizing.
+
+In the second submission I only used 4 epochs, as the loss rate dropped really fast.
 
  I used an adam optimizer so that manually training the learning rate wasn't necessary.
