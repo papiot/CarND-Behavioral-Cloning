@@ -142,14 +142,6 @@ Here are some sample images:
 
 ![alt text][image1] ![alt text][image2] ![alt text][image3]
 
-And here is the resulting video of the test track. This is 100% autonomous:
-
-<div>
-    <video width="320" height="160" controls>
-        <source src="video.mp4" type="video/mp4">
-    </video>
-<div>
-
 And here are some sample images from the test track
 
 ![alt text][image4] ![alt text][image5] ![alt text][image6]
