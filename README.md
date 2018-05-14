@@ -22,10 +22,10 @@ The goals / steps of this project are the following:
 [image2]: ./examples/right_2018_05_07_22_03_08_447.jpg "Right Image"
 [image3]: ./examples/center_2018_05_07_22_03_08_447.jpg "Center Image"
 
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image4]: ./examples/left_2018_05_14_22_58_02_995.jpg "Left Image"
+[image5]: ./examples/right_2018_05_14_22_58_02_995.jpg "Right Image"
+[image6]: ./examples/center_2018_05_14_22_58_02_995.jpg "Center Image"
+
 [image8]: https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2016/08/cnn-architecture-624x890.png "Nvidia CNN model"
 
 ## Rubric Points
@@ -141,6 +141,10 @@ To capture good driving behavior, I first recorded three laps on track one using
 Here are some sample images:
 
 ![alt text][image1] ![alt text][image2] ![alt text][image3]
+
+And here are some sample images from the test track
+
+![alt text][image4] ![alt text][image5] ![alt text][image6]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover when going close to the edge.
 
