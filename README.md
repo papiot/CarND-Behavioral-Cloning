@@ -144,9 +144,11 @@ Here are some sample images:
 
 And here is the resulting video of the test track. This is 100% autonomous:
 
-<video width="320" height="160" controls>
-  <source src="video.mp4" type="video/mp4">
-</video>
+<div>
+    <video width="320" height="160" controls>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+<div>
 
 And here are some sample images from the test track
 
