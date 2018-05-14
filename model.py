@@ -10,11 +10,16 @@ with open('./data/driving_log.csv') as csvfile:
   for line in reader:
     lines.append(line)
 
+with open('./data_track2/driving_log.csv') as csvfile:
+  reader = csv.reader(csvfile)
+  for line in reader:
+    lines.append(line)
+
 images = []
 measurements = []
 
 print("Getting data....")
-correction = 0.8
+correction = 0.2
 for line in lines:
   for i in range(3):
     source_path = line[i]
@@ -22,7 +27,8 @@ for line in lines:
     current_path = './data/IMG/' + filename
  
     image = cv2.imread(current_path)
-    images.append(image)
+    image_rgb = (cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    images.append(image_rgb)
 
     measurement = float(line[3])
 
@@ -53,18 +59,10 @@ from keras.layers.convolutional import Convolution2D
 from keras.layers.pooling import MaxPooling2D
 
 # Nvidia's CNN architecture
-# Taken from here: https://devblogs.nvidia.com/deep-learning-self-driving-cars/
-# with modifications to fit our data
 model = Sequential()
 model.add(Cropping2D(cropping=((70, 25), (0, 0)), input_shape=X_train[0].shape))
-
-# Normalize the image
 model.add(Lambda(lambda x: (x / 255.0) - 0.5))
-
-# Use 0.2 dropout (tried different numbers, 0.2 worked best)
 model.add(Dropout(0.2))
-
-
 model.add(Convolution2D(24, 5, 5, subsample=(2, 2), activation="relu"))
 model.add(Convolution2D(36, 5, 5, subsample=(2, 2), activation="relu"))
 model.add(Convolution2D(48, 5, 5, subsample=(2, 2), activation="relu"))
@@ -72,14 +70,33 @@ model.add(Dropout(0.2))
 model.add(Convolution2D(64, 3, 3, activation="relu"))
 model.add(Convolution2D(64, 3, 3, activation="relu"))
 model.add(Flatten())
-
-# Fully connected layers, with 1 the final output
 model.add(Dense(100))
 model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
 
+#model = Sequential()
+#model.add(Lambda(lambda x : x / 255.0 - 0.5, input_shape=(160, 320, 3)))
+
+#model.add(Cropping2D(cropping=((80, 25), (0, 0))))
+
+#model.add(Convolution2D(6, 5, 5, activation="relu"))
+#model.add(MaxPooling2D())
+
+#model.add(Convolution2D(6, 5, 5, activation="relu"))
+#model.add(MaxPooling2D())
+
+# use dropout to eliminate overfitting and improve the validation loss
+#model.add(Dropout(.3))
+
+#model.add(Flatten())
+#model.add(Dense(120))
+#model.add(Dense(84))
+#model.add(Dense(1))
+
 model.compile(loss='mse', optimizer='adam')
-model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=20)
+model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=4)
 
 model.save('model.h5')
+
+
