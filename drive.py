@@ -6,7 +6,6 @@ import shutil
 
 import numpy as np
 import socketio
-import eventlet
 import eventlet.wsgi
 from PIL import Image
 from flask import Flask
