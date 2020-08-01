@@ -32,10 +32,10 @@ for line in lines:
 
     measurement = float(line[3])
 
-    if (i == 1):
+    if i == 1:
       measurement = measurement + correction
     
-    if (i == 2):
+    if i == 2:
       measurement = measurement - correction
 
     measurements.append(measurement)
